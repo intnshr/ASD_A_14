@@ -1,2 +1,3 @@
 print("Project Antrian Tiket Bioskop")
 print("nilai kami bagus")
+print("kami akan terus belajar untuk meningkatkan nilai kami")
