@@ -1,0 +1,1 @@
+print("Project Antrian Tiket Bioskop")
