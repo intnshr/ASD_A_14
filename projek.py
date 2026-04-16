@@ -8,26 +8,23 @@
 # 3. FAIZA AGHNAITA (J0403251122)
 # =======================================================
 
-with open("data_antrian.txt","r",encoding="utf-8") as file:
-    antrian = []
-
 import os
+
+antrian = []
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+NAMA_FILE = os.path.join(BASE_DIR, "data_antrian.txt")
 
 def load_data():
     global antrian
     antrian = []
 
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    path_file = os.path.join(base_dir, "data_antrian.txt")
-
-
     try:
-        with open(path_file, "r", encoding="utf-8") as file:
+        with open(NAMA_FILE, "r", encoding="utf-8") as file:
             for baris in file:
                 nama = baris.strip()
                 if nama != "":
                     antrian.append(nama)
-
 
     except FileNotFoundError:
         print("File tidak ditemukan")
