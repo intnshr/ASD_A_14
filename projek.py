@@ -161,6 +161,28 @@ class QueueBioskop:
             )
 
     # ===================================================
+    # TAMBAH NODE
+    # ===================================================
+
+    def tambah_node(self, nama, kursi):
+
+        node_baru = Node(nama, kursi)
+
+        # Jika antrian kosong
+        if self.front is None:
+
+            self.front = node_baru
+            self.rear = node_baru
+
+        else:
+
+            self.rear.next = node_baru
+            self.rear = node_baru
+
+        self.jumlah += 1
+
+    
+    # ===================================================
     # CEK KURSI
     # ===================================================
 
