@@ -22,6 +22,33 @@ class Node:
         self.kursi = kursi
         self.next = None
 
+# =======================================================
+# CLASS QUEUE BIOSKOP
+# =======================================================
+
+class QueueBioskop:
+
+    def validasi_kursi(self, kursi):
+
+        if len(kursi) < 2:
+            return False
+
+        huruf = kursi[0]
+        angka = kursi[1:]
+
+        if huruf not in "ABCDEFGHIJ":
+            return False
+
+        if not angka.isdigit():
+            return False
+
+        angka = int(angka)
+
+        if angka < 1 or angka > 10:
+            return False
+
+        return True
+
 def load_data():
     global antrian
     antrian = []
