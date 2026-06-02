@@ -160,7 +160,23 @@ class QueueBioskop:
                 str(self.kursi_tersedia)
             )
 
+    # ===================================================
+    # CEK KURSI
+    # ===================================================
 
+    def cek_kursi(self, kursi):
+
+        temp = self.front
+
+        while temp:
+
+            if temp.kursi == kursi:
+
+                return True
+
+            temp = temp.next
+
+        return False
 
 
 def save_data():
