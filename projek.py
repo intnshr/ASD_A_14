@@ -493,68 +493,121 @@ class QueueBioskop:
                 f"{item[0]} - Kursi {item[1]}"
             )
 
+    # ===================================================
+    # LIHAT ANTRIAN DEPAN
+    # ===================================================
+
+    def lihat_depan(self):
+
+        if self.front is None:
+
+            print("Antrian kosong.")
+            return
+
+        print("\n=== ANTRIAN PALING DEPAN ===")
+        print(f"Nama   : {self.front.nama}")
+        print(f"Kursi  : {self.front.kursi}")
+
+    # ===================================================
+    # JUMLAH ANTRIAN
+    # ===================================================
+
+    def jumlah_antrian(self):
+
+        print(
+            f"Jumlah antrian saat ini : "
+            f"{self.jumlah}"
+        )
+
+    # ===================================================
+    # INFO KURSI
+    # ===================================================
+
+    def info_kursi(self):
+
+        print(
+            f"Sisa kursi studio : "
+            f"{self.kursi_tersedia}"
+        )
+
+    # ===================================================
+    # MENU PROGRAM
+    # ===================================================
+
+    def menu(self):
+
+        while True:
+
+            print("\n=== SISTEM ANTRIAN TIKET BIOSKOP ===")
+            print("1. Tambah Antrian")
+            print("2. Tampilkan Antrian")
+            print("3. Update Nomor Kursi")
+            print("4. Layani Antrian")
+            print("5. Cari Data")
+            print("6. Sorting Nomor Kursi")
+            print("7. Lihat Antrian Depan")
+            print("8. Jumlah Antrian")
+            print("9. Info Kursi")
+            print("10. Keluar")
+
+            pilih = input(
+                "Pilih menu (1-10) : "
+            ).strip()
+
+            if pilih == "1":
+
+                self.enqueue()
+
+            elif pilih == "2":
+
+                self.tampilkan_antrian()
+
+            elif pilih == "3":
+
+                self.update_kursi()
+
+            elif pilih == "4":
+
+                self.dequeue()
+
+            elif pilih == "5":
+
+                self.cari_data()
+
+            elif pilih == "6":
+
+                self.sorting_kursi()
+
+            elif pilih == "7":
+
+                self.lihat_depan()
+
+            elif pilih == "8":
+
+                self.jumlah_antrian()
+
+            elif pilih == "9":
+
+                self.info_kursi()
+
+            elif pilih == "10":
+
+                print("Program selesai.")
+                break
+
+            else:
+
+                print("Pilihan tidak valid.")
+
+# =======================================================
+# PROGRAM UTAMA
+# =======================================================
+
+bioskop = QueueBioskop()
+bioskop.menu()
 
 
 
 
 
 
-def layani_antrian():
-    """Delete: melayani dan menghapus pembeli paling depan."""
-    if len(antrian) == 0:
-        print("Antrian kosong.")
-        return
-
-    nama = antrian.pop(0)
-    save_data()
-    print(f"Pembeli yang dilayani: {nama}")
-
-
-def lihat_depan():
-    """Menampilkan pembeli paling depan tanpa menghapus."""
-    if len(antrian) == 0:
-        print("Antrian kosong.")
-        return
-
-    print(f"Antrian paling depan: {antrian[0]}")
-
-
-def jumlah_antrian():
-    """Menampilkan jumlah pembeli dalam antrian."""
-    print(f"Jumlah antrian saat ini: {len(antrian)}")
-
-
-def menu():
-    while True:
-        print("\n=== SISTEM ANTRIAN TIKET BIOSKOP ===")
-        print("1. Tambah Antrian")
-        print("2. Tampilkan Antrian")
-        print("3. Update Data Antrian")
-        print("4. Layani Antrian")
-        print("5. Lihat Antrian Paling Depan")
-        print("6. Jumlah Antrian")
-        print("7. Keluar")
-
-        pilih = input("Pilih menu (1-7): ").strip()
-
-        if pilih == "1":
-            tambah_antrian()
-        elif pilih == "2":
-            tampilkan_antrian()
-        elif pilih == "3":
-            update_antrian()
-        elif pilih == "4":
-            layani_antrian()
-        elif pilih == "5":
-            lihat_depan()
-        elif pilih == "6":
-            jumlah_antrian()
-        elif pilih == "7":
-            print("Program selesai.")
-            break
-        else:
-            print("Pilihan tidak valid. Silakan pilih 1-7.")
-
-
-load_data()
-menu()
