@@ -10,10 +10,17 @@
 
 import os
 
-antrian = []
+# =======================================================
+# CLASS NODE (LINKED LIST)
+# =======================================================
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-NAMA_FILE = os.path.join(BASE_DIR, "data_antrian.txt")
+class Node:
+
+    def __init__(self, nama, kursi):
+
+        self.nama = nama
+        self.kursi = kursi
+        self.next = None
 
 def load_data():
     global antrian
