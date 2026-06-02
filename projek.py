@@ -78,6 +78,36 @@ class QueueBioskop:
         self.load_data()
         self.load_kursi()
 
+     # ===================================================
+    # LOAD DATA ANTRIAN
+    # ===================================================
+
+    def load_data(self):
+
+        try:
+
+            with open(
+                self.file_antrian,
+                "r",
+                encoding="utf-8"
+            ) as file:
+
+                for baris in file:
+
+                    data = baris.strip().split("|")
+
+                    if len(data) == 2:
+
+                        nama = data[0]
+                        kursi = data[1]
+
+                        self.tambah_node(nama, kursi)
+
+        except FileNotFoundError:
+
+            print("File antrian tidak ditemukan.")
+
+
 
 def load_data():
     global antrian
