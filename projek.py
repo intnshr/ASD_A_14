@@ -126,6 +126,40 @@ class QueueBioskop:
 
             self.kursi_tersedia = self.total_kursi
 
+    # ===================================================
+    # SAVE DATA ANTRIAN
+    # ===================================================
+
+    def save_data(self):
+
+        with open(
+            self.file_antrian,
+            "w",
+            encoding="utf-8"
+        ) as file:
+
+            temp = self.front
+
+            while temp:
+
+                file.write(
+                    f"{temp.nama}|{temp.kursi}\n"
+                )
+
+                temp = temp.next
+
+    # ===================================================
+    # SAVE DATA KURSI
+    # ===================================================
+
+    def save_kursi(self):
+
+        with open(self.file_kursi, "w") as file:
+
+            file.write(
+                str(self.kursi_tersedia)
+            )
+
 
 
 
