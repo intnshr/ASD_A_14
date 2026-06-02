@@ -178,6 +178,106 @@ class QueueBioskop:
 
         return False
 
+    # ===================================================
+    # ENQUEUE
+    # ===================================================
+
+    def enqueue(self):
+
+        # Jika kursi habis
+        if self.kursi_tersedia == 0:
+
+            print("\n================================")
+            print("KURSI BIOSKOP SUDAH HABIS")
+            print("ANTRIAN DITUTUP")
+            print("================================")
+
+            return
+
+        nama = input(
+            "Masukkan nama pembeli : "
+        ).strip()
+
+        # Validasi nama
+        if nama == "":
+
+            print("Nama tidak boleh kosong.")
+            return
+
+        if nama.isdigit():
+
+            print("Nama tidak boleh angka.")
+            return
+
+        kursi = input(
+            "Masukkan nomor kursi : "
+        ).upper().strip()
+        
+        if not self.validasi_kursi(kursi):
+
+            print(
+                    "Nomor kursi tidak valid.\n"
+                    "Gunakan format A1 sampai J10."
+            )
+
+            return
+
+
+        # Validasi kursi
+        if kursi == "":
+
+            print("Nomor kursi tidak boleh kosong.")
+            return
+
+        # Cek kursi sudah dipakai
+        if self.cek_kursi(kursi):
+
+            print("Nomor kursi sudah digunakan.")
+            return
+
+        # Tambah node
+        self.tambah_node(nama, kursi)
+
+        # Kursi berkurang
+        self.kursi_tersedia -= 1
+
+        # Save file
+        self.save_data()
+        self.save_kursi()
+
+        print(f"{nama} berhasil masuk antrian.")
+    
+    # ===================================================
+    # DEQUEUE
+    # ===================================================
+
+    def dequeue(self):
+
+        if self.front is None:
+
+            print("Antrian kosong.")
+            return
+
+        nama = self.front.nama
+        kursi = self.front.kursi
+
+        # Geser front
+        self.front = self.front.next
+
+        # Jika kosong
+        if self.front is None:
+
+            self.rear = None
+
+        self.jumlah -= 1
+
+        # Save data
+        self.save_data()
+
+        print("\n=== PEMBELI DILAYANI ===")
+        print(f"Nama   : {nama}")
+        print(f"Kursi  : {kursi}")
+
 
 def save_data():
     """Menyimpan isi list antrian ke file TXT."""
