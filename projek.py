@@ -378,6 +378,120 @@ class QueueBioskop:
             f"{kursi_lama} -> {kursi_baru}"
         )
 
+    # ===================================================
+    # SEARCHING
+    # ===================================================
+
+    def cari_data(self):
+
+        if self.front is None:
+
+            print("Antrian kosong.")
+            return
+
+        keyword = input(
+            "Masukkan nama / kursi : "
+        ).lower()
+
+        temp = self.front
+        nomor = 1
+        ditemukan = False
+
+        print("\n=== HASIL PENCARIAN ===")
+
+        while temp:
+
+            if (
+                keyword in temp.nama.lower()
+                or keyword in temp.kursi.lower()
+            ):
+
+                print(
+                    f"{nomor}. "
+                    f"{temp.nama} - Kursi {temp.kursi}"
+                )
+
+                ditemukan = True
+
+            temp = temp.next
+            nomor += 1
+
+        if not ditemukan:
+
+            print("Data tidak ditemukan.")
+
+    # ===================================================
+    # SORTING KURSI
+    # ===================================================
+    def merge_sort(self, data):
+
+        if len(data) <= 1:
+            return data
+
+        tengah = len(data) // 2
+
+        kiri = self.merge_sort(data[:tengah])
+        kanan = self.merge_sort(data[tengah:])
+
+        hasil = []
+
+        i = 0
+        j = 0
+
+        while i < len(kiri) and j < len(kanan):
+
+            if kiri[i][1] <= kanan[j][1]:
+
+                hasil.append(kiri[i])
+                i += 1
+
+            else:
+
+                hasil.append(kanan[j])
+                j += 1
+
+        while i < len (kiri):
+
+                hasil.append(kiri[i])
+                i += 1
+
+        while j < len(kanan):
+
+                hasil.append(kanan[j])
+                j += 1
+
+        return hasil
+
+    def sorting_kursi(self):
+
+        if self.front is None:
+
+            print("Antrian kosong.")
+            return
+
+        data = []
+
+        temp = self.front
+
+        while temp:
+
+            data.append(
+                (temp.nama, temp.kursi)
+            )
+
+            temp = temp.next
+
+        # Merge Sort
+        data = self.merge_sort(data)
+
+        print("\n=== SORTING NOMOR KURSI ===")
+
+        for i, item in enumerate(data, start=1):
+
+            print(
+                f"{i}. "
+                f"{item[0]} - Kursi {item[1]}"
+            )
 
 
 
