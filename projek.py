@@ -78,7 +78,7 @@ class QueueBioskop:
         self.load_data()
         self.load_kursi()
 
-     # ===================================================
+    # ===================================================
     # LOAD DATA ANTRIAN
     # ===================================================
 
@@ -108,20 +108,24 @@ class QueueBioskop:
             print("File antrian tidak ditemukan.")
 
 
+    # ===================================================
+    # LOAD DATA KURSI
+    # ===================================================
 
-def load_data():
-    global antrian
-    antrian = []
+    def load_kursi(self):
 
-    try:
-        with open(NAMA_FILE, "r", encoding="utf-8") as file:
-            for baris in file:
-                nama = baris.strip()
-                if nama != "":
-                    antrian.append(nama)
+        try:
 
-    except FileNotFoundError:
-        print("File tidak ditemukan")
+            with open(self.file_kursi, "r") as file:
+
+                self.kursi_tersedia = int(
+                    file.read()
+                )
+
+        except:
+
+            self.kursi_tersedia = self.total_kursi
+
 
 
 
