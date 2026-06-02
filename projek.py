@@ -49,6 +49,36 @@ class QueueBioskop:
 
         return True
 
+    def __init__(self):
+
+        # Pointer queue
+        self.front = None
+        self.rear = None
+
+        # Jumlah antrian
+        self.jumlah = 0
+
+        # Total kursi studio
+        self.total_kursi = 100
+
+        # Lokasi file
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+        self.file_antrian = os.path.join(
+            BASE_DIR,
+            "data_antrian.txt"
+        )
+
+        self.file_kursi = os.path.join(
+            BASE_DIR,
+            "data_kursi.txt"
+        )
+
+        # Load data dari txt
+        self.load_data()
+        self.load_kursi()
+
+
 def load_data():
     global antrian
     antrian = []
