@@ -279,64 +279,110 @@ class QueueBioskop:
         print(f"Kursi  : {kursi}")
 
 
-def save_data():
-    """Menyimpan isi list antrian ke file TXT."""
-    with open(NAMA_FILE, "w", encoding="utf-8") as file:
-        for nama in antrian:
-            file.write(nama + "\n")
+    # ===================================================
+    # TAMPILKAN ANTRIAN
+    # ===================================================
+
+    def tampilkan_antrian(self):
+
+        if self.front is None:
+
+            print("Antrian kosong.")
+            return
+
+        print("\n=== DAFTAR ANTRIAN BIOSKOP ===")
+
+        temp = self.front
+        nomor = 1
+
+        while temp:
+
+            print(
+                f"{nomor}. "
+                f"{temp.nama} - Kursi {temp.kursi}"
+            )
+
+            temp = temp.next
+            nomor += 1
+
+    # ===================================================
+    # UPDATE NOMOR KURSI
+    # ===================================================
+
+    def update_kursi(self):
+
+        if self.front is None:
+
+            print("Antrian kosong.")
+            return
+
+        self.tampilkan_antrian()
+
+        try:
+
+            nomor = int(
+                input("Pilih nomor antrian : ")
+            )
+
+        except ValueError:
+
+            print("Input harus angka.")
+            return
+
+        if nomor < 1 or nomor > self.jumlah:
+
+            print("Nomor tidak valid.")
+            return
+
+        kursi_baru = input(
+            "Masukkan kursi baru : "
+        ).upper().strip()
+
+        if not self.validasi_kursi(kursi_baru):
+
+            print(
+                "Nomor kursi tidak valid.\n"
+                "Gunakan format A1 sampai J10."
+            )
+
+            return
+
+        # Validasi
+        if kursi_baru == "":
+
+            print("Nomor kursi tidak boleh kosong.")
+            return
+
+        # Cek kursi
+        if self.cek_kursi(kursi_baru):
+
+            print("Nomor kursi sudah digunakan.")
+            return
+
+        # Traversal linked list
+        temp = self.front
+
+        for i in range(1, nomor):
+
+            temp = temp.next
+
+        kursi_lama = temp.kursi
+
+        temp.kursi = kursi_baru
+
+        # Save data
+        self.save_data()
+
+        print(
+            f"Kursi berhasil diubah "
+            f"{kursi_lama} -> {kursi_baru}"
+        )
 
 
-def tambah_antrian():
-    """Create: menambahkan pembeli ke antrian."""
-    nama = input("Masukkan nama pembeli: ").strip()
-
-    if nama == "":
-        print("Nama tidak boleh kosong.")
-        return
-
-    antrian.append(nama)
-    save_data()
-    print(f"{nama} berhasil ditambahkan ke antrian.")
 
 
-def tampilkan_antrian():
-    """Read: menampilkan seluruh isi antrian."""
-    if len(antrian) == 0:
-        print("Antrian masih kosong.")
-        return
-
-    print("\n=== DAFTAR ANTRIAN ===")
-    for i, nama in enumerate(antrian, start=1):
-        print(f"{i}. {nama}")
 
 
-def update_antrian():
-    """Update: mengubah nama pembeli berdasarkan nomor antrian."""
-    if len(antrian) == 0:
-        print("Antrian kosong, tidak ada yang bisa diubah.")
-        return
-
-    tampilkan_antrian()
-
-    try:
-        nomor = int(input("Masukkan nomor antrian yang ingin diubah: "))
-    except ValueError:
-        print("Input harus berupa angka.")
-        return
-
-    if nomor < 1 or nomor > len(antrian):
-        print("Nomor antrian tidak valid.")
-        return
-
-    nama_baru = input("Masukkan nama baru: ").strip()
-    if nama_baru == "":
-        print("Nama baru tidak boleh kosong.")
-        return
-
-    nama_lama = antrian[nomor - 1]
-    antrian[nomor - 1] = nama_baru
-    save_data()
-    print(f"Data berhasil diubah: {nama_lama} -> {nama_baru}")
 
 
 def layani_antrian():
